@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Layout from '~/layouts/Layout.vue';
+import { Head } from '@inertiajs/vue3';
 
 interface Post {
     id: number;
@@ -15,6 +16,9 @@ defineProps<{
 </script>
 
 <template>
+    <Head>
+        <title>all posts</title>
+    </Head>
     <Layout>
         <h1 class="my-8 text-2xl">All Post</h1>
         <div v-for="post in posts">

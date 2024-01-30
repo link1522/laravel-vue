@@ -3,12 +3,13 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { ZiggyPlugin } from './plugins/ZiggyPlugin';
 
 createInertiaApp({
-    resolve: name => {
+    resolve: (name) => {
         const pages = import.meta.glob<DefineComponent>('./pages/**/*.vue', {
             eager: true
         });
         return pages[`./pages/${name}.vue`];
     },
+    title: (title) => 'Inertia App | ' + title,
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
