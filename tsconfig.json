@@ -1,0 +1,23 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.json",
+    "include": [
+        "resources/**/*.ts",
+        "resources/**/*.d.ts",
+        "resources/**/*.vue",
+        "resources/js/app.ts"
+    ],
+    "compilerOptions": {
+        "allowJs": true,
+        "strict": false,
+        "baseUrl": ".",
+        "paths": {
+            "~/*": [
+                "resources/js/*"
+            ]
+        },
+        // get the support of Vite-specific methods and accessors, such as `import.meta.glob`
+        "types": [
+            "vite/client"
+        ]
+    }
+}
