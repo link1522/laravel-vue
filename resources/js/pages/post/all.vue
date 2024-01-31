@@ -16,7 +16,7 @@ defineProps<{
 
 const destroy = (id: number) => {
     if (confirm('Are you sure?')) {
-        router.delete(route('posts.destroy', id));
+        router.delete(ziggyRoute('posts.destroy', id));
     }
 };
 </script>
@@ -29,7 +29,7 @@ const destroy = (id: number) => {
         <h1 class="my-8 text-2xl">All Post</h1>
         <div class="mb-4">
             <Link
-                :href="$route('posts.create')"
+                :href="$ziggyRoute('posts.create')"
                 class="bg-green-700 px-4 py-2 rounded"
                 >add a new post</Link
             >
@@ -42,12 +42,20 @@ const destroy = (id: number) => {
                 <hr class="border-gray-300" />
                 <p>{{ post.content }}</p>
 
-                <button
-                    @click="destroy(post.id)"
-                    class="bg-red-600 text-white rounded px-4"
-                >
-                    Delete
-                </button>
+                <div class="flex gap-4 my-2">
+                    <Link
+                        :href="$ziggyRoute('posts.edit', post.id)"
+                        class="bg-blue-600 text-white rounded px-4"
+                    >
+                        Edit
+                    </Link>
+                    <button
+                        @click="destroy(post.id)"
+                        class="bg-red-600 text-white rounded px-4"
+                    >
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
     </Layout>

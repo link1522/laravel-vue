@@ -34,10 +34,23 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('message', 'Post created successfully');
     }
 
+    public function edit(Post $post): Response
+    {
+        return Inertia::render('post/edit', compact('post'));
+    }
+
+    public function update(Post $post, StorePostRequest $request): RedirectResponse
+    {
+        $post->update($request->validated());
+
+        return redirect()->route('posts.index')->with('message', 'Post update successfully');
+    }
+
     public function destroy(Post $post): RedirectResponse
     {
         $post->delete();
 
         return redirect()->route('posts.index')->with('message', 'Post delete successfully');
     }
+
 }

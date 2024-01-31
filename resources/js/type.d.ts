@@ -3,10 +3,10 @@ import routeFn from 'ziggy-js';
 
 declare module 'vue' {
     interface ComponentCustomProperties {
-        $route: typeof routeFn;
+        $ziggyRoute: typeof routeFn;
     }
 }
 
 declare global {
-    var route: typeof routeFn;
+    var ziggyRoute: typeof routeFn;
 }

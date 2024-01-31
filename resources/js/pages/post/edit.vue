@@ -9,27 +9,28 @@ interface PostForm {
     content: string;
 }
 
-defineProps<{
+const props = defineProps<{
+    post: PostForm & { id: number };
     errors: Record<keyof PostForm, string>;
 }>();
 
 const form = useForm<PostForm>({
-    author: '',
-    title: '',
-    abstract: '',
-    content: ''
+    author: props.post.author,
+    title: props.post.title,
+    abstract: props.post.abstract,
+    content: props.post.content
 });
 </script>
 
 <template>
     <Head>
-        <title>new post</title>
+        <title>edit post</title>
     </Head>
     <Layout>
         <h1 class="my-8 text-2xl">create post</h1>
 
         <form
-            @submit.prevent="form.post($ziggyRoute('posts.store'))"
+            @submit.prevent="form.put($ziggyRoute('posts.update', post.id))"
             class="flex flex-col gap-4"
         >
             <label for="author">
