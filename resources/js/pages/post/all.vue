@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Layout from '~/layouts/Layout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 
 interface Post {
     id: number;
@@ -13,6 +13,12 @@ interface Post {
 defineProps<{
     posts: Post[];
 }>();
+
+const destroy = (id: number) => {
+    if (confirm('Are you sure?')) {
+        router.delete(route('posts.destroy', id));
+    }
+};
 </script>
 
 <template>
@@ -35,6 +41,13 @@ defineProps<{
 
                 <hr class="border-gray-300" />
                 <p>{{ post.content }}</p>
+
+                <button
+                    @click="destroy(post.id)"
+                    class="bg-red-600 text-white rounded px-4"
+                >
+                    Delete
+                </button>
             </div>
         </div>
     </Layout>
