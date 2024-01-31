@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
-use \Inertia\Response;
+use Inertia\Response;
 
 class PostController extends Controller
 {
@@ -27,14 +27,9 @@ class PostController extends Controller
         return Inertia::render('post/create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StorePostRequest $request): RedirectResponse
     {
-        Post::create([
-            'author' => $request->author,
-            'title' => $request->title,
-            'abstract' => $request->abstract,
-            'content' => $request->content,
-        ]);
+        Post::create($request->validated());
 
         return redirect()->route('posts.index');
     }

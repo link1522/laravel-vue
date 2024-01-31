@@ -2,7 +2,18 @@
 import Layout from '~/layouts/Layout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
-const form = useForm({
+interface PostForm {
+    author: string;
+    title: string;
+    abstract: string;
+    content: string;
+}
+
+defineProps<{
+    errors: Record<keyof PostForm, string>;
+}>();
+
+const form = useForm<PostForm>({
     author: '',
     title: '',
     abstract: '',
@@ -25,14 +36,20 @@ const form = useForm({
                 Author:
                 <input v-model="form.author" id="author" type="text" />
             </label>
+            <p class="text-red-600">{{ errors.author }}</p>
+
             <label for="title">
                 Title:
                 <input v-model="form.title" id="title" type="text" />
             </label>
+            <p class="text-red-600">{{ errors.title }}</p>
+
             <label for="abstract">
                 Abstract:
                 <input v-model="form.abstract" id="abstract" type="text" />
             </label>
+            <p class="text-red-600">{{ errors.abstract }}</p>
+
             <label for="content">
                 Content:
                 <textarea
@@ -42,9 +59,14 @@ const form = useForm({
                     rows="10"
                 ></textarea>
             </label>
+            <p class="text-red-600">{{ errors.content }}</p>
 
             <div class="flex gap-4 mx-2">
-                <button type="submit" class="bg-green-700 px-2 py-1 rounded">
+                <button
+                    type="submit"
+                    :disabled="form.processing"
+                    class="bg-green-700 px-2 py-1 rounded"
+                >
                     Submit
                 </button>
                 <Link
