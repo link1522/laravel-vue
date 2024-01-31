@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 
-const page = usePage();
+const page = usePage<{
+    flush: {
+        message: string;
+    };
+}>();
 
 const checkExactClass = (componentName: string): string => {
     return page.component === componentName ? 'outline' : '';
@@ -23,6 +27,9 @@ const checkExactClass = (componentName: string): string => {
         </nav>
 
         <main>
+            <p v-if="page.props.flush.message" class="text-blue-600">
+                {{ page.props.flush.message }}
+            </p>
             <slot />
         </main>
     </div>
