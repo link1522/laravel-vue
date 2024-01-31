@@ -18,7 +18,7 @@ Route::get('/', function () {
     return inertia('index');
 });
 
-Route::get('posts', [PostController::class, 'index'])->name('post.index');
+Route::resource('posts', PostController::class);
 Route::get('json', [PostController::class, 'json'])->name('post.json');
 
 Route::inertia('about', 'about')->name('page.about');

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Layout from '~/layouts/Layout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 interface Post {
     id: number;
@@ -21,12 +21,21 @@ defineProps<{
     </Head>
     <Layout>
         <h1 class="my-8 text-2xl">All Post</h1>
-        <div v-for="post in posts">
-            <h3 class="text-xl">{{ post.title }}</h3>
-            <p>{{ post.abstract }}</p>
+        <div class="mb-4">
+            <Link
+                :href="$route('posts.create')"
+                class="bg-green-700 px-4 py-2 rounded"
+                >add a new post</Link
+            >
+        </div>
+        <div class="grid gap-6">
+            <div v-for="post in posts">
+                <h3 class="text-xl">{{ post.title }}</h3>
+                <p>{{ post.abstract }}</p>
 
-            <hr />
-            <p>{{ post.content }}</p>
+                <hr class="border-gray-300" />
+                <p>{{ post.content }}</p>
+            </div>
         </div>
     </Layout>
 </template>

@@ -16,7 +16,7 @@ const checkExactClass = (componentName: string): string => {
                 >about</Link
             >
             <Link
-                :href="$route('post.index')"
+                :href="$route('posts.index')"
                 :class="checkExactClass('post/all')"
                 >posts</Link
             >
