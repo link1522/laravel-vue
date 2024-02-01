@@ -26,6 +26,16 @@ const checkExactClass = (componentName: string): string => {
                 :class="checkExactClass('post/all')"
                 >posts</Link
             >
+            <Link
+                :href="$ziggyRoute('login')"
+                :class="checkExactClass('auth/login')"
+                >login</Link
+            >
+            <Link
+                :href="$ziggyRoute('signUp')"
+                :class="checkExactClass('auth/signUp')"
+                >sign up</Link
+            >
         </nav>
 
         <main>
