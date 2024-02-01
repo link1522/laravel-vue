@@ -13,6 +13,7 @@ class PostController extends Controller
 {
     public function index(): Response
     {
+        $this->authorize('viewAny', Post::class);
         $posts = PostResource::collection(Post::all());
         return Inertia::render('post/all', compact('posts'));
     }
@@ -24,11 +25,13 @@ class PostController extends Controller
 
     public function create(): Response
     {
+        $this->authorize('create', Post::class);
         return Inertia::render('post/create');
     }
 
     public function store(StorePostRequest $request): RedirectResponse
     {
+        $this->authorize('create', Post::class);
         Post::create($request->validated());
 
         return redirect()->route('posts.index')->with('message', 'Post created successfully');
@@ -36,11 +39,13 @@ class PostController extends Controller
 
     public function edit(Post $post): Response
     {
+        $this->authorize('create', Post::class);
         return Inertia::render('post/edit', compact('post'));
     }
 
     public function update(Post $post, StorePostRequest $request): RedirectResponse
     {
+        $this->authorize('create', Post::class);
         $post->update($request->validated());
 
         return redirect()->route('posts.index')->with('message', 'Post update successfully');
@@ -48,6 +53,7 @@ class PostController extends Controller
 
     public function destroy(Post $post): RedirectResponse
     {
+        $this->authorize('create', Post::class);
         $post->delete();
 
         return redirect()->route('posts.index')->with('message', 'Post delete successfully');

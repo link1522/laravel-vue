@@ -5,6 +5,10 @@ const page = usePage<{
     flush: {
         message: string;
     };
+    user: {
+        name: string;
+        email: string;
+    };
 }>();
 
 const checkExactClass = (componentName: string): string => {
@@ -27,17 +31,29 @@ const checkExactClass = (componentName: string): string => {
                 >posts</Link
             >
             <Link
+                v-if="!page.props.user.email"
                 :href="$ziggyRoute('login')"
                 :class="checkExactClass('auth/login')"
+                class="ml-auto"
                 >login</Link
             >
             <Link
+                v-if="!page.props.user.email"
                 :href="$ziggyRoute('signUp')"
                 :class="checkExactClass('auth/signUp')"
                 >sign up</Link
             >
-            <Link :href="$ziggyRoute('logout')" method="delete">log out</Link>
+            <Link
+                v-if="page.props.user.email"
+                :href="$ziggyRoute('logout')"
+                class="ml-auto"
+                method="delete"
+                as="button"
+                >log out</Link
+            >
         </nav>
+
+        <h2 v-if="page.props.user.name">hello, {{ page.props.user.name }} !</h2>
 
         <main>
             <p v-if="page.props.flush.message" class="text-blue-600">

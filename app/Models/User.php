@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getPermissionsAttribute(): array
+    {
+        return [
+            'posts_view' => in_array($this->id, [1, 2]),
+            'posts_manage' => $this->id === 1,
+        ];
+    }
 }

@@ -12,6 +12,10 @@ interface Post {
 
 defineProps<{
     posts: Post[];
+    permission: {
+        posts_view: boolean;
+        posts_manage: boolean;
+    };
 }>();
 
 const destroy = (id: number) => {
@@ -29,6 +33,7 @@ const destroy = (id: number) => {
         <h1 class="my-8 text-2xl">All Post</h1>
         <div class="mb-4">
             <Link
+                v-if="permission.posts_manage"
                 :href="$ziggyRoute('posts.create')"
                 class="bg-green-700 px-4 py-2 rounded"
                 >add a new post</Link
@@ -36,13 +41,13 @@ const destroy = (id: number) => {
         </div>
         <div class="grid gap-6">
             <div v-for="post in posts">
-                <h3 class="text-xl">{{ post.title }}</h3>
+                <h3 class="text-xl">{{ `${post.id}. ${post.title}` }}</h3>
                 <p>{{ post.abstract }}</p>
 
                 <hr class="border-gray-300" />
                 <p>{{ post.content }}</p>
 
-                <div class="flex gap-4 my-2">
+                <div v-if="permission.posts_manage" class="flex gap-4 my-2">
                     <Link
                         :href="$ziggyRoute('posts.edit', post.id)"
                         class="bg-blue-600 text-white rounded px-4"
