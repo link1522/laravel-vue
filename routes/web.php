@@ -32,3 +32,5 @@ Route::middleware(['guest'])->group(function () {
     Route::inertia('signUp', 'auth/signUp')->name('signUp');
     Route::post('signUp', [RegisterController::class, 'store'])->name('signUp.post');
 });
+
+Route::delete('logout', [LoginController::class, 'destroy'])->name('logout');

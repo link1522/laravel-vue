@@ -36,6 +36,7 @@ const checkExactClass = (componentName: string): string => {
                 :class="checkExactClass('auth/signUp')"
                 >sign up</Link
             >
+            <Link :href="$ziggyRoute('logout')" method="delete">log out</Link>
         </nav>
 
         <main>
